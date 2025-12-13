@@ -1,17 +1,28 @@
-# 📚 Student Management System (CRUD Application)
+# Student Management System (CRUD Application)
 
 This is a simple, desktop-based Student Management System application built using **JavaFX** and managed by **Maven**. The application performs standard **CRUD** (Create, Read, Update, Delete) operations and uses a CSV file for data persistence.
 
-## ✨ Features
+##  Features
 
 * **Add Student:** Input fields for Name, ID, Department, Email, and CGPA.
-* **View/Display:** Shows all student records in a dynamic TableView.
-* **Update Student:** Allows editing of selected student details (except ID).
-* **Delete Student:** Allows removal of selected student records.
-* **Search:** Filters the table instantly by Name, ID, or Department.
-* **Data Storage:** Uses a local **`students.csv`** file for saving data.
+<img width="791" height="623" alt="Image" src="https://github.com/user-attachments/assets/a026e77c-701e-4a0e-8995-4e1533c34224" />
 
-## 🛠️ Technology Stack
+* **View/Display:** Shows all student records in a dynamic TableView.
+<img width="807" height="457" alt="Image" src="https://github.com/user-attachments/assets/e64c3d62-cb5b-402b-a1fe-ff65304f9a44" />
+
+* **Update Student:** Allows editing of selected student details (except ID).
+<img width="800" height="627" alt="Image" src="https://github.com/user-attachments/assets/7f1ef9e9-6962-4e3c-a4f2-ae279eb0fa7c" />
+
+* **Delete Student:** Allows removal of selected student records.
+<img width="806" height="635" alt="Image" src="https://github.com/user-attachments/assets/64bc3700-f790-41a7-a1ac-006cd7da9819" />
+
+* **Search:** Filters the table instantly by Name, ID, or Department.
+<img width="802" height="622" alt="Image" src="https://github.com/user-attachments/assets/1b8c7192-c2df-4457-9d96-fabf6e1d7583" />
+
+* **Data Storage:** Uses a local **`students.csv`** file for saving data.
+<img width="580" height="139" alt="Image" src="https://github.com/user-attachments/assets/8ccf8ebc-a67f-4eb1-8000-6e1278d629e1" />
+
+##  Technology Stack
 
 | Component | Technology | Role |
 | :--- | :--- | :--- |
@@ -41,7 +52,7 @@ Since this is a Maven project, running it is very simple using the Maven Wrapper
 
     * This command will automatically download the necessary dependencies and launch the JavaFX application window.
 
-## 📂 Project Structure and Data Flow
+##  Project Structure and Data Flow
 
 The application logic is clearly separated among three main files:
 
@@ -58,12 +69,16 @@ The application saves all student records to a file named **`students.csv`** loc
 * **Loading:** When the app starts, the `loadStudentsFromCSV()` method reads the file and populates the table.
 * **Saving:** Every time a student is added, updated, or deleted, the `saveStudentsToCSV()` method is called to **overwrite** the file with the complete, current list of students.
 
-## 💡 Code Highlights
+## Code Highlights
 
 ### Table Refresh & Data Binding
 
 The TableView updates dynamically because the `Student` class uses **JavaFX Properties** (e.g., `StringProperty`, `DoubleProperty`).
 
-```java
-// Example in MainController.java
-nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+Search Logic
+The search filter is applied instantly using a Listener on the searchField's text property:
+
+// Example in MainController.java's initialize method
+searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+    filterStudents(newValue);
+});
